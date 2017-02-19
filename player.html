@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <title>Google Text to Speech</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/flatly/bootstrap.min.css">
+
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+</head>
+
+<body>
+    <!-- Page Content -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <input class="form-control" id="words" type="text" value="大家好，很高興見到各位！">
+                <button class="form-control btn btn-default" id="play">Play</button>
+                <audio id="player" src="#"></audio>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <ul>
+                    <li><a href="player.html?q=注意！注意！進到教室後，請先安靜坐下，不要開機。">不要開機</a></li>
+                    <li><a href="player.html?q=老師要切換螢幕了，趕快存檔，倒數計時，五，四，三，二，一。">切換螢幕</a></li>
+                    <li><a href="player.html?q=警告！警告！系統發現教室音量太大聲了，各位同學請降低音量，感謝您的合作。">降低音量</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        jQuery.noConflict();
+        (function($)
+        {
+            $(function()
+            {
+                var words = "" + location.search;
+                words = decodeURIComponent(words.replace(
+                    "?q=", ""));
+
+                if (words)
+                {
+                    $("#words").val(words);
+                }
+
+                $("#play").on("click", function()
+                {
+                    var words = "" + $("#words").val();
+                    $("audio#player").attr('src',
+                        'http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=0&client=tw-ob&tl=zh-tw&q=' +
+                        words).trigger("play");
+
+                });
+            });
+        })(jQuery);
+    </script>
+</body>
+
+</html>
